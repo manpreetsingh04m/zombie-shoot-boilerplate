@@ -43,19 +43,6 @@ function zombieMaking() {
 }
 // zombieMaking()
 // Iteration 3: Write a function to check if the player missed a zombie
-function zombieTop() {
-  let zombie = document.getElementById("zombie" + zombieNumber);
-  if (zombie.getBoundingClientRect().top <= 0) {
-    lives--;
-    updateHeartColor();
-    zombieKill(zombie);
-    updateHeartColor();
-    console.log("topNumber: ", lives);
-
-    // Update the heart color
-  }
-}
-
 function updateHeartColor() {
   const heartIcons = document.querySelectorAll('.heart i');
   for (let i = 0; i < maxLives; i++) {
@@ -68,6 +55,22 @@ function updateHeartColor() {
     }
   }
 }
+
+function zombieTop() {
+  let zombie = document.getElementById("zombie" + zombieNumber);
+  if (zombie.getBoundingClientRect().top <= 0) {
+    lives--
+    updateHeartColor();
+    zombieKill(zombie);
+    updateHeartColor();
+    console.log("topNumber: ", lives);
+
+    // Update the heart color
+  }
+}
+updateHeartColor();
+
+
 // Iteration 4: Write a function to destroy a zombie when it is shot or missed
 function zombieKill(zombie){
   zombie.style.display="none";
