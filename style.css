@@ -51,6 +51,7 @@ body {
     letter-spacing: 3px;
     color: white;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 #button:hover {
@@ -111,7 +112,30 @@ h2 {
     justify-content: center;
     align-items: center;
 }
-
+.all_lives{
+    position: absolute;
+    display: flex;
+    width: 130px;
+    justify-content: space-evenly;
+    flex-direction: row;
+    top: 10px;
+    left: 10px;
+}
+.heart {
+    display: inline-block;
+  }
+  
+  /* Define the transparent heart class */
+  .transparent-heart {
+    display: inline-block;
+    color: transparent;
+  }
+#score-box {
+    font-size: 6vw;
+    border: 1px solid white;
+    color: white;
+    padding: 2vw;
+}
 @keyframes flying {
     0% {
         bottom: -100px;

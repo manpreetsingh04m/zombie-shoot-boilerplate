@@ -16,13 +16,14 @@ let image=[
 // Iteration 1.2: Add shotgun sound
 const shotgunAudio = new Audio("./assets/shotgun.wav")
 gameBody.onclick=()=>{
+  shotgunAudio.pause();
   shotgunAudio.currentTime = 0;
   shotgunAudio.play();
 }
 // Iteration 1.3: Add background sound
 var backgroundSound = new Audio("./assets/bgm.mp3")
-backgroundSound.play();
-backgroundSound.loop = true;
+backgroundSound.play()
+backgroundSound.loop = true
 // Iteration 1.4: Add lives
 var lives=5;
 var maxLives=5;
@@ -34,7 +35,7 @@ function zombieMaking() {
   zombie.id = `zombie${zombieNumber}`;
   zombie.className = "zombie-image";
   zombie.style.transform = `translateX(${randomInteger(10, 80)}vw)`;
-  zombie.style.animationDuration = `${randomInteger(1, 6)}s`;
+  zombie.style.animationDuration = `${randomInteger(2, 6)}s`;
   gameBody.appendChild(zombie);
   zombie.onclick=()=>{
     zombieKill(zombie);
@@ -42,29 +43,54 @@ function zombieMaking() {
 }
 // zombieMaking()
 // Iteration 3: Write a function to check if the player missed a zombie
-function zombieTop(){
+function zombieTop() {
+  let zombie = document.getElementById("zombie" + zombieNumber);
+  if (zombie.getBoundingClientRect().top <= 0) {
+    lives--;
+    updateHeartColor();
+    zombieKill(zombie);
+    updateHeartColor();
+    console.log("topNumber: ", lives);
 
+    // Update the heart color
+  }
+}
+
+function updateHeartColor() {
+  const heartIcons = document.querySelectorAll('.heart i');
+  for (let i = 0; i < maxLives; i++) {
+    if (i >= lives) {
+    //  Transparent Making
+      heartIcons[i].style.color = 'transparent';
+    } else {
+      //  red Colour making
+      heartIcons[i].style.color = '#ff0000';
+    }
+  }
 }
 // Iteration 4: Write a function to destroy a zombie when it is shot or missed
 function zombieKill(zombie){
   zombie.style.display="none";
   zombieNumber++;
+  var killingScore = zombieNumber-(5-lives);
   zombieMaking();
+  localStorage.setItem("killingScore",killingScore)
 }
+
 // Iteration 5: Creating timer
 timer=60
 var time = setInterval(function () {
   timer--;
-document.getElementById("timer").textContent=timer
-
-if(lives==0){
-  clearInterval(time);
-  location.href="./game-over.html"
-}
-if(timer==0){
-  clearInterval(time);
-  location.href="./win.html"
-}
+  document.getElementById("timer").textContent=timer
+  zombieTop() 
+  if(lives==0){
+    // clearInterval(time);
+    location.href="./game-over.html"
+  }
+  if(timer==0){
+    // clearInterval(time);
+    location.href="./win.html"
+  }
 },1000)
 // Iteration 6: Write a code to start the game by calling the first zombie
 zombieMaking()
